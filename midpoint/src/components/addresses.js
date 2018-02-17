@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
-import {TextInput,Text} from 'react-native'
+import {TextInput,Text, View} from 'react-native'
 
 class Addresses extends Component{
   constructor(){
     super()
     this.state = {
-      addresses: [{location:''}]
+      addresses: [{location:''},{location:''}]
     }
   }
   render(){
@@ -16,7 +16,9 @@ class Addresses extends Component{
       />)
 
     return(
-      <div></div>
+      <View>
+      {inputs}
+      </View>
     )
   }
 }
