@@ -5,7 +5,6 @@ import React from 'react'
 // takes the out put on the component and places it on the screen ad provides default
 import {AppRegistry} from 'react-native'
 import App from './App'
-import Map from './src/components/map'
 
 
 // you must register one component to application
