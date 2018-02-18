@@ -10,4 +10,4 @@ import Map from './src/components/map'
 
 // you must register one component to application
 
-AppRegistry.registerComponent('midpoint', ()=>Map)
+AppRegistry.registerComponent('midpoint', ()=> App)
