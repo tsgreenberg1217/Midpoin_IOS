@@ -23,6 +23,7 @@ class Addresses extends Component{
   render(){
     const inputs  = this.state.addresses.map( (address, i) =>
       {return<TextInput
+        key = {i}
         style={{height: 40}}
         placeholder="Enter location here"
         onChange = {(e) => this.handleAddressChange(e.nativeEvent.text,i)}

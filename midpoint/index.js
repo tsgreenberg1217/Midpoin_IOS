@@ -1,7 +1,7 @@
 // knows how a component should behave and take a bunch of comps and
 // make them work together
 import React from 'react'
-// portal to mibile device
+// portal to mobile device
 // takes the out put on the component and places it on the screen ad provides default
 import {AppRegistry} from 'react-native'
 import App from './App'
