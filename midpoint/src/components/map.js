@@ -1,25 +1,30 @@
+/*global google*/
 import React from 'react'
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet,Text, View} from 'react-native'
 import MapView from 'react-native-maps';
 
-class Map extends React.Component{
-  constructor(){
-    super()
-    this.state={
 
-    }
-  }
+class Map extends React.Component{
   render(){
     return(
       <View style = {styles.container}>
         <MapView style = {styles.map}
-          initialRegion={{
+          region={{
             latitude: 37.78825,
             longitude: -122.4324,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
+            latitudeDelta: 0.1,
+            longitudeDelta: 0.1,
           }}
+        >
+        <MapView.Marker
+          coordinate= {{
+            latitude: 37.78824,
+            longitude: -122.4323,
+          }}
+          title = {"Shop"}
+          description= {"Cool things"}
         />
+        </MapView>
       </View>
     )
   }
