@@ -11,38 +11,26 @@ import {
   Text,
   View
 } from 'react-native';
-import Header from './src/components/header'
 import Addresses from './src/components/addresses'
 import Map from './src/components/map'
+import { StackNavigator } from 'react-navigation';
 
 
+const RootStack = StackNavigator({
+  Home: {
+    screen: Addresses,
+  },
+  Map: {
+    screen: Map,
+  }
+},
+{
+  initialRouteName: 'Home'
+}
+);
 
-export default class App extends Component<Props> {
+export default class App extends React.Component {
   render() {
-    return (
-      <View style={{flex:1}}>
-        <Header headerText = {'Midpoints'}/>
-        <Addresses/>
-      </View>
-    );
+    return <RootStack />;
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});
