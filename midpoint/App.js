@@ -13,10 +13,10 @@ import {
 } from 'react-native';
 import Header from './src/components/header'
 import Addresses from './src/components/addresses'
+import Map from './src/components/map'
 
 
 
-type Props = {};
 export default class App extends Component<Props> {
   render() {
     return (

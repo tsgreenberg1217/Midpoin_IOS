@@ -1,5 +1,9 @@
 import React, {Component} from 'react'
 import {TextInput,Text, View, Button, ScrollView} from 'react-native'
+import {StackNavigator} from 'react-navigation';
+import Map from './map'
+import Header from './header'
+
 
 class Addresses extends Component{
   constructor(){
@@ -30,6 +34,8 @@ class Addresses extends Component{
       />})
 
     return(
+      <View style={{flex:1}}>
+      <Header headerText = {'Midpoints'}/>
       <ScrollView>
       <View style = {{alignItems: 'center'}}>
       {inputs}
@@ -37,8 +43,14 @@ class Addresses extends Component{
       onPress = {()=> this.setState({addresses: [...this.state.addresses, {location:''}]})}
       title = 'Add Addresses'
       style = {styles.buttonStyle}/>
+
+      <Button
+      onPress = {()=>this.props.navigation.navigate('Map')}
+      title = 'Lets Meet!'
+      style = {styles.buttonStyle}/>
       </View>
       </ScrollView>
+      </View>
     )
   }
 }
