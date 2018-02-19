@@ -7,26 +7,46 @@ import {StackNavigator} from 'react-navigation';
 
 
 class Map extends React.Component{
+  constructor(){
+    super()
+    this.state={
+      midpoint:{latitude:37.78825,longitude: -122.4324},
+      places:[{latitude:37.78825,longitude: -122.4324, title: 'Shop', description: 'Cool things'}]
+    }
+  }
+  componentDidMount(){
+  }
   render(){
+    const { params } = this.props.navigation.state;
+    const midpoint = params ? params.midpoint : null;
+    const places = params ? params.places : null;
+
+    const markedPlaces = places.map((place,i) =>{
+      return <MapView.Marker
+      key = {i}
+      coordinate = {{
+        latitude: place.latitude,
+        longitude: place.longitude
+      }}
+      title = {place.title}
+      description = {place.description}/>
+    })
     return(
       <View style = {styles.container}>
         <MapView style = {styles.map}
           region={{
-            latitude: 37.78825,
-            longitude: -122.4324,
+            latitude: midpoint.latitude,
+            longitude: midpoint.longitude,
             latitudeDelta: 0.1,
             longitudeDelta: 0.1,
           }}
         >
-        <MapView.Marker
-          coordinate= {{
-            latitude: 37.78824,
-            longitude: -122.4323,
-          }}
-          title = {"Shop"}
-          description= {"Cool things"}
-        />
+        {markedPlaces}
         </MapView>
+        <Button
+        onPress = {()=>console.log('hello')}
+        title = 'props'
+        />
         <Button
         onPress = {()=>this.props.navigation.goBack()}
         title = 'Back'

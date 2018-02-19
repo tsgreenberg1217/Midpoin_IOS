@@ -29,7 +29,14 @@ class Addresses extends Component{
         {location:text},
         ...this.state.addresses.slice(index+1)
       ]
-    }, () => console.log(this.state.addresses))
+    })
+  }
+
+  dataToMap(){
+    return{
+      midpoint: {latitude: 26.158147,longitude: -80.325408},
+      places:[{latitude:26.158147,longitude: -80.325408, title: 'BB&T Center', description: 'GO CATS GO!!!'}]
+    }
   }
 
   render(){
@@ -42,23 +49,20 @@ class Addresses extends Component{
       />})
 
     return(
-      <View style={{flex:1}}>
-      <Header headerText = {'Midpoints'}/>
-      <ScrollView>
-      <View style = {{alignItems: 'center'}}>
-      {inputs}
-      <Button
-      onPress = {()=> this.setState({addresses: [...this.state.addresses, {location:''}]})}
-      title = 'Add Addresses'
-      style = {styles.buttonStyle}/>
+        <ScrollView>
+          <View style = {{alignItems: 'center'}}>
+          {inputs}
+          <Button
+          onPress = {()=> this.setState({addresses: [...this.state.addresses, {location:''}]})}
+          title = 'Add Addresses'
+          style = {styles.buttonStyle}/>
 
-      <Button
-      onPress = {()=>this.props.navigation.navigate('Map')}
-      title = 'Lets Meet!'
-      style = {styles.buttonStyle}/>
-      </View>
-      </ScrollView>
-      </View>
+          <Button
+          onPress = {()=>this.props.navigation.navigate('Map',this.dataToMap())}
+          title = 'Lets Meet!'
+          style = {styles.buttonStyle}/>
+          </View>
+        </ScrollView>
     )
   }
 }
