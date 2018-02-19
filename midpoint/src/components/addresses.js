@@ -3,6 +3,9 @@ import {TextInput,Text, View, Button, ScrollView} from 'react-native'
 import {StackNavigator} from 'react-navigation';
 import Map from './map'
 import Header from './header'
+import {getLatLong} from '../services/findMidpoint'
+import {findCoordinates} from '../services/findCoordinates'
+
 
 
 class Addresses extends Component{
@@ -15,9 +18,6 @@ class Addresses extends Component{
   }
 
   componentWillUnmount(){
-    // this.setState({
-    //   addresses: [{location:''},{location:''}]
-    // })
     console.log('Addresses unmounted')
   }
 
@@ -37,6 +37,10 @@ class Addresses extends Component{
       midpoint: {latitude: 26.158147,longitude: -80.325408},
       places:[{latitude:26.158147,longitude: -80.325408, title: 'BB&T Center', description: 'GO CATS GO!!!'}]
     }
+  }
+  startAddresSubmit = (addresses) =>{
+    addresses.map(address => findCoordinates(address.location))
+    // this.props.navigation.navigate('Map',this.dataToMap())
   }
 
   render(){
@@ -58,7 +62,7 @@ class Addresses extends Component{
           style = {styles.buttonStyle}/>
 
           <Button
-          onPress = {()=>this.props.navigation.navigate('Map',this.dataToMap())}
+          onPress = {() => this.startAddresSubmit(this.state.addresses)}
           title = 'Lets Meet!'
           style = {styles.buttonStyle}/>
           </View>
