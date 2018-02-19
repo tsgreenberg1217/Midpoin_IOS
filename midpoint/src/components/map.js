@@ -1,7 +1,9 @@
 /*global google*/
 import React from 'react'
-import {StyleSheet,Text, View} from 'react-native'
+import {StyleSheet,Text, View, Button} from 'react-native'
 import MapView from 'react-native-maps';
+import {StackNavigator} from 'react-navigation';
+
 
 
 class Map extends React.Component{
@@ -25,6 +27,10 @@ class Map extends React.Component{
           description= {"Cool things"}
         />
         </MapView>
+        <Button
+        onPress = {()=>this.props.navigation.goBack()}
+        title = 'Back'
+        />
       </View>
     )
   }

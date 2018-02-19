@@ -14,6 +14,14 @@ class Addresses extends Component{
     this.handleAddressChange = this.handleAddressChange.bind(this)
   }
 
+  componentWillUnmount(){
+    // this.setState({
+    //   addresses: [{location:''},{location:''}]
+    // })
+    console.log('Addresses unmounted')
+  }
+
+
   handleAddressChange(text,index){
     this.setState({
       addresses: [
