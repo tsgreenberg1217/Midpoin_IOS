@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {TextInput,Text, View, Button, ScrollView} from 'react-native'
+import {TextInput,Text, View, Button, ScrollView, Modal, ActivityIndicator} from 'react-native'
 import {StackNavigator} from 'react-navigation';
 import Map from './map'
 import Header from './header'
@@ -19,6 +19,7 @@ class Addresses extends Component{
     }
     this.handleAddressChange = this.handleAddressChange.bind(this)
   }
+
 
   componentWillUnmount(){
     console.log('Addresses unmounted')
@@ -139,6 +140,13 @@ class Addresses extends Component{
     return(
         <ScrollView>
           <View style = {{alignItems: 'center'}}>
+          <Modal
+          visible = {this.state.loading}
+          animationType = {'fade'}>
+            <View style = {[styles.container, styles.horizontal]}>
+            <ActivityIndicator size = "large" color = "#0000ff"/>
+            </View>
+          </Modal>
           {inputs}
           <Button
           onPress = {()=> this.setState({addresses: [...this.state.addresses, {location:''}]})}
@@ -158,6 +166,15 @@ class Addresses extends Component{
 const styles = {
   buttonStyle:{
     backgroundColor: 'red'
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'center'
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10
   }
 }
 export default Addresses
