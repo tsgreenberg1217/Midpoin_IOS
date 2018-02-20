@@ -14,7 +14,8 @@ class Addresses extends Component{
   constructor(){
     super()
     this.state = {
-      addresses: [{location:''},{location:''}]
+      addresses: [{location:''},{location:''}],
+      loading: false
     }
     this.handleAddressChange = this.handleAddressChange.bind(this)
   }
@@ -37,17 +38,13 @@ class Addresses extends Component{
   getLatLong = (array) =>{
     getMidArray = (lat,long) =>{
       const pi = Math.PI
-
       const radianLat = lat * pi/180
       const radianLong  = long * pi/180
       const calcX = Math.cos(radianLat) * Math.cos(radianLong)
       const calcY = Math.cos(radianLat) * Math.sin(radianLong)
       const calcZ = Math.sin(radianLat)
-
       return {x:calcX, y:calcY, z:calcZ}
-
     }
-
    const avg = array.map(function(pair){
      return getMidArray(pair.lat, pair.lng)
    })
@@ -112,21 +109,21 @@ class Addresses extends Component{
           term: 'restaurant'
         })
       }
+      // use the midpoint to fetch yelp results
       fetch(`https://mymidpointserver.herokuapp.com/api/v1/adapters`, body)
       .then(res => res.json())
       .then(json =>{
+        // sort by rating for top 6 places
         let places = json.businesses.sort(function(a,b){return b.rating-a.rating}).slice(0,6)
+        // format for component
         let formatedPlaces = places.map(loc => {return {title:loc.name, description: loc.url, coordinates: loc.coordinates} })
-
+        // got to next screen and send data as props to map component
         this.props.navigation.navigate('Map',{
           midpoint:midpoint,
           places: formatedPlaces
 
         })
       })
-
-
-
     })
   }
 
