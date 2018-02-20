@@ -1,4 +1,4 @@
-export function getMidArray(lat,long){
+function getMidArray(lat,long){
   const pi = Math.PI
 
   const radianLat = lat * pi/180
@@ -11,7 +11,7 @@ export function getMidArray(lat,long){
 
 }
 
-export function getLatLong(array){
+ getLatLong = (array) =>{
 
   const avg = array.map(function(pair){
     return getMidArray(pair.lat, pair.lng)
@@ -38,7 +38,7 @@ export function getLatLong(array){
 
   return {latitude: latitude_degrees, longitude: longitude_degrees }
 }
-
+export default getLatLong
 
 
 //

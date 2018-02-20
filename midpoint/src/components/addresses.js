@@ -45,9 +45,12 @@ class Addresses extends Component{
       return fetch(url).then(res => res.json()).then(json => {return json})
     })
 
-    Promise.all(promises).then(function(results) {
-      debugger
-        console.log(results)
+    Promise.all(promises).then((results) => {
+      var locations = results.map(result => {
+        return {lat: result.results[0].geometry.location.lat, lng: result.results[0].geometry.location.lng}
+      })
+      let midpoint = getLatLong(locations)
+
     })
     // this.props.navigation.navigate('Map',this.dataToMap())
   }
