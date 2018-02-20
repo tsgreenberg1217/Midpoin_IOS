@@ -39,7 +39,11 @@ class Addresses extends Component{
     }
   }
   startAddresSubmit = (addresses) =>{
-    addresses.map(address => findCoordinates(address.location))
+    // debugger
+    debugger
+    const results = addresses.map(address => findCoordinates(address.location))
+    debugger
+    Promise.all(results).then( coor => console.log(coor))
     // this.props.navigation.navigate('Map',this.dataToMap())
   }
 
