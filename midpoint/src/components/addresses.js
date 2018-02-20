@@ -40,11 +40,13 @@ class Addresses extends Component{
     }
   }
   startAddresSubmit = (addresses) =>{
+    // formats all the locations to url strings
     const urls = addresses.map(address => `https://maps.googleapis.com/maps/api/geocode/json?address=${address.location}&key=${keys.googleKey}`)
+    // maps everything to promises to later be resolved
     var promises = urls.map(function(url){
       return fetch(url).then(res => res.json()).then(json => {return json})
     })
-
+    // Resolves the array of promises and starts to operate on the data
     Promise.all(promises).then((results) => {
       var locations = results.map(result => {
         return {lat: result.results[0].geometry.location.lat, lng: result.results[0].geometry.location.lng}
