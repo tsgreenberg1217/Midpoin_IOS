@@ -24,10 +24,7 @@ class Map extends React.Component{
     const markedPlaces = places.map((place,i) =>{
       return <MapView.Marker
       key = {i}
-      coordinate = {{
-        latitude: place.latitude,
-        longitude: place.longitude
-      }}
+      coordinate = {place.coordinates}
       title = {place.title}
       description = {place.description}/>
     })

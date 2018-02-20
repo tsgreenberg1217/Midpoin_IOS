@@ -5,7 +5,7 @@ import Map from './map'
 import Header from './header'
 // import {getLatLong} from '../services/findMidpoint'
 // import {findCoordinates} from '../services/findCoordinates'
-import {fetchToYelp} from '../services/yelpAPI'
+// import {fetchToYelp} from '../services/yelpAPI'
 const keys = require('../../config/keys')
 
 
@@ -81,23 +81,6 @@ class Addresses extends Component{
     }
   }
 
-  fetchToYelp = (lat,lng) =>{
-
-    const body = {
-      method: "POST",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        lat: lat,
-        lng: lng,
-        term: 'restaurant'
-      })
-    }
-    return fetch(`$https://mymidpointserver.herokuapp.com/api/v1/adapters`, body).then(res => res.json())
-  }
-
 
 
 
@@ -129,16 +112,21 @@ class Addresses extends Component{
           term: 'restaurant'
         })
       }
-      debugger
       fetch(`https://mymidpointserver.herokuapp.com/api/v1/adapters`, body)
       .then(res => res.json())
       .then(json =>{
-        debugger
+        let places = json.businesses.sort(function(a,b){return b.rating-a.rating}).slice(0,6)
+        let formatedPlaces = places.map(loc => {return {title:loc.name, description: loc.url, coordinates: loc.coordinates} })
+
+        this.props.navigation.navigate('Map',{
+          midpoint:midpoint,
+          places: formatedPlaces
+
+        })
       })
 
 
 
-      // this.props.navigation.navigate('Map',this.dataToMap())
     })
   }
 
