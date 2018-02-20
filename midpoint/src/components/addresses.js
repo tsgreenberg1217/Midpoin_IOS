@@ -5,6 +5,7 @@ import Map from './map'
 import Header from './header'
 import {getLatLong} from '../services/findMidpoint'
 import {findCoordinates} from '../services/findCoordinates'
+const keys = require('../../config/keys')
 
 
 
@@ -39,11 +40,15 @@ class Addresses extends Component{
     }
   }
   startAddresSubmit = (addresses) =>{
-    // debugger
-    debugger
-    const results = addresses.map(address => findCoordinates(address.location))
-    debugger
-    Promise.all(results).then( coor => console.log(coor))
+    const urls = addresses.map(address => `https://maps.googleapis.com/maps/api/geocode/json?address=${address.location}&key=${keys.googleKey}`)
+    var promises = urls.map(function(url){
+      return fetch(url).then(res => res.json()).then(json => {return json})
+    })
+
+    Promise.all(promises).then(function(results) {
+      debugger
+        console.log(results)
+    })
     // this.props.navigation.navigate('Map',this.dataToMap())
   }
 
