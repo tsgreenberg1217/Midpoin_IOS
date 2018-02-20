@@ -72,18 +72,13 @@ class Addresses extends Component{
    return {latitude: latitude_degrees, longitude: longitude_degrees }
  }
 
-  dataToMap(){
-    return{
-      midpoint: {latitude: 26.158147,longitude: -80.325408},
-      places:[{latitude:26.158147,longitude: -80.325408, title: 'BB&T Center', description: 'GO CATS GO!!!'}]
-    }
-  }
 
 
 
 
   startAddresSubmit = (addresses) =>{
     // formats all the locations to url strings
+
     const urls = addresses.map(address => `https://maps.googleapis.com/maps/api/geocode/json?address=${address.location}&key=${keys.googleKey}`)
     // maps everything to promises to later be resolved
     var promises = urls.map((url) =>
@@ -119,13 +114,28 @@ class Addresses extends Component{
         // format for component
         let formatedPlaces = places.map(loc => {return {title:loc.name, description: loc.url, coordinates: loc.coordinates} })
         // got to next screen and send data as props to map component
-        this.props.navigation.navigate('Map',{
-          midpoint:midpoint,
-          places: formatedPlaces
 
-        })
+        this.goToMap(midpoint,formatedPlaces)
       })
     })
+  }
+
+  goToMap(midpoint,formatedPlaces){
+    this.setState({
+      loading:false
+    },
+    () => this.props.navigation.navigate('Map',{
+      midpoint:midpoint,
+      places: formatedPlaces
+    })
+   )
+  }
+
+  startLoader(addresses){
+
+    this.setState({
+      loading: true
+    },this.startAddresSubmit(addresses))
   }
 
   render(){
@@ -154,7 +164,7 @@ class Addresses extends Component{
           style = {styles.buttonStyle}/>
 
           <Button
-          onPress = {() => this.startAddresSubmit(this.state.addresses)}
+          onPress = {() => this.startLoader(this.state.addresses)}
           title = 'Lets Meet!'
           style = {styles.buttonStyle}/>
           </View>
