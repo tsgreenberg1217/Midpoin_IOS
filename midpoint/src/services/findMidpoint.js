@@ -1,4 +1,4 @@
-function getMidArray(lat,long){
+ getMidArray = (lat,long) =>{
   const pi = Math.PI
 
   const radianLat = lat * pi/180
